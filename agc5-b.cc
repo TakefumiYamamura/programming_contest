@@ -1,27 +1,35 @@
 #include <iostream>
+#include <set>
+#include <vector>
 
 using namespace std;
 
 int main(){
-	long long int sum = 0;
+	long  sum = 0;
 	int n;
 	int a[200001];
+	int pos[200001];
+	set<int> data;
 
 	cin >> n;
-	for (int i = 0; i < n; ++i)
+	for (int i = 1; i <= n; ++i)
 	{
 		cin >> a[i];
+		pos[a[i]] = i;
 	}
 
-	for (int l = 0; l < n; ++l)
+	data.insert(0);
+	data.insert(n+1);
+
+	for (int i = 1; i <= n; ++i)
 	{
-		int min = 200001;
-		for (int r = l; r < n; ++r)
-		{
-			if(min > a[r]) min = a[r];
-			sum += min;
-		}
+		int l, r;
+		data.insert(pos[i]);
+		set<int>::iterator it = data.find(pos[i]);
+		r = *(++it) - pos[i];
+		--it;
+		l = pos[i] - *(--it);
+		sum += (long)i * r * l;
 	}
 	cout << sum << endl;
-
 }
