@@ -57,7 +57,7 @@ int main(){
 		}
 	}
 
-	for (int i = lower_limit; i <= n; ++i)
+	for (int i = lower_limit; i <= max; ++i)
 	{
 		if (check[i] == false)
 		{
