@@ -3,8 +3,8 @@
 #include <vector>
 #include <map>
 #include <set>
-
-#define INF (ll)1e9 + 7
+//INFが小さいとtestcase5で落ちる
+#define INF (long long)30000000005
 #define ll long long
 using namespace std;
 
@@ -21,6 +21,10 @@ void compute_low_n(){
 	ll sw, sv;
 	// 前半の列挙
 	int n2 = N/2;
+	if(n2 == 0){
+		ans = 0;
+		return;
+	}
 	for (int i = 0; i < 1 << n2; ++i)
 	{
 		sw = 0;
