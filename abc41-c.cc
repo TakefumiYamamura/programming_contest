@@ -10,7 +10,6 @@ using namespace std;
 struct Num{
 	ll value, index;
 	static bool Asc(const Num& x, const Num& y){ return x.value > y.value ;}
-
 };
 
 int main(){

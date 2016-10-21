@@ -71,64 +71,70 @@ class DisjointSet {
 
 struct Edge {
   int a, b, year;
+  static bool Asc(const Edge& x, const Edge& y){ return x.year > y.year; }
 };
 
 struct Question {
   int town_num, year, index;
+  static bool Asc(const Question& x, const Question& y){ return x.year > y.year; }
 };
 
 
 
 int main(){
   int n, m, q;
-  Edge edges[NMAX];
-  Question questions[QMAX];
-
+  vector<Edge> edges;
+  vector<Question> questions;
   int ans[QMAX];
 
   cin >> n >> m;
-  vector<pair<int, int> > year(m);
+  for (int i = 0; i < m; ++i)
+  {
+    Edge edge;
+    // cin >> edges[i].a >> edges[i].b >> edges[i].year;
+    cin >> edge.a >> edge.b >> edge.year;
+    edges.push_back(edge);
+  }
+
+  sort(edges.begin(), edges.end(), Edge::Asc);
+    // [](const Edge &x, const Edge &y) -> bool { return x.year > y.year; } );
+
+  cin >> q;
+  for (int i = 0; i < q; ++i)
+  {
+    Question question;
+    cin >> question.town_num >> question.year;
+    question.index = i;
+    questions.push_back(question);
+  }
+
+  sort(questions.begin(), questions.end(), Question::Asc);
+    // [](const Question &x, const Question &y) -> bool { return x.year > y.year; } );
+
+
+  DisjointSet ds = DisjointSet(n);
+
+  int q_year, q_index;
+
+  q_year = questions[0].year;
+  q_index = 0;
 
   for (int i = 0; i < m; ++i)
   {
-    cin >> Edges[i].a >> Edges[i].b >> year[i].first;
-    year[i].second = i;
-  }
-  sort(year.begin(), year.end(), greater<pair<int,int> >());
-
-  cin >> q;
-  vector<pair<int, int> > ques(q); // v w
-  for (int i = 0; i < q; ++i)
-  {
-    ques[i].second = i;
-    cin >> v[i] >> ques[i].first;
-  }
-
-
-  sort(ques.begin(), ques.end(), greater<pair<int,int> >());
-  //ques first is year second is index
-  //v[] is 街の番号
-  DisjointSet ds = DisjointSet(n);
-
-  w = ques[0].first;
-  int i = 0;
-  while(q){
-    for (int j = 0; j < m ; ++j)
-    {
-      if(year[j].first > w){
-        int index;
-        index = year[j].second ;
-        ds.unite(Edges[index].a, Edges[index].b);
-      }else{
-        ans[ques[i].second] = ds.fetchCnt(v[ques[i].second]-1)
-        cout << ds.fetchCnt(v[ques[i].second]-1) << endl;
-        j--;
-        i++;
-        w = ques[i].first;
-      }
+    if(edges[i].year > questions[q_index].year){
+      ds.unite(edges[i].a - 1, edges[i].b - 1);
+    }else{
+      ans[questions[q_index].index] = ds.fetchCnt(questions[q_index].town_num - 1);
+      q_index ++;
+      i--;
+      if(q_index == q){ break; }
     }
   }
 
+  while(q_index != q){
+    ans[questions[q_index].index] = ds.fetchCnt(questions[q_index].town_num - 1);
+    q_index ++;
+  }
 
   for (int i = 0; i < q; ++i)
   {
