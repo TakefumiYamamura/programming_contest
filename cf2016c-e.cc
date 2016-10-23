@@ -1,5 +1,9 @@
 #include <iostream>
+#include <map>
 #include <vector>
+#include <algorithm>
+#include <string>
+#include <set>
 #define ll long long 
 using namespace std;
 
@@ -35,8 +39,54 @@ void set_factorial(ll n){
 	}
 }
 
+ll factorial( ll x )
+{
+	ll tmp = x;
+	for( ll i = 1; i < x-1 ;++i ){
+		tmp *= x-i;
+		tmp %= MOD;
+	}
+	return tmp % MOD;
+	
+}
+
+
 int main(){
-	ll h, w, a, b;
+	ll n;
+	cin >> n;
+	int p[500001];
+	set<int> data;
+	vector<int> shortage;
+	for (int i = 0; i < n; ++i)
+	{
+		cin >> p[i];
+		data.insert(p[i])
+	}
+	for (int i = 1; i <= n; ++i)
+	{
+		if(set.find(i) == false){
+			shortage.push_back(i);
+		}
+	}
+
+	ll ans = 0;
+	for (int i = 0; i < n; ++i)
+	{
+		
+	}
+	for (int i = 0; i < n; ++i)
+	{
+		if(p[i] == 0){
+			for (int i = 0; i < shortage.length(); ++i)
+			{
+				ans += pow(2, n-i-1);
+				ans %= MOD;
+			}
+		}
+	}
+	ll fac = factorial(shortage.length());
+
+
 	cin >> h >> w >> a >> b;
 
 	set_factorial(h+w);
