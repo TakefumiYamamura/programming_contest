@@ -40,11 +40,6 @@ class RootedTree{
 		}
 	}
 
-	// long long solve_dp(){
-
-	// }
-
-
 };
 
 
@@ -53,14 +48,17 @@ int main(){
 	cin >> N;
 	RootedTree rt = RootedTree(N);
 
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < N-1; ++i)
 	{
 		int a, b;
 		cin >> a >> b;
 		rt.make_bridge(a-1, b-1);
+		rt.make_bridge(b-1, a-1);
 	}
 
-	Node test;
-	cout << test.p << test.l << test.r;
+	for (int i = 0; i < N; ++i)
+	{
+		cout << rt.nodes[i].p << " "<< rt.nodes[i].r << " " << rt.nodes[i].l << " " <<endl;
+	}
 
 }
