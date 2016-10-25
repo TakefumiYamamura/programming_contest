@@ -20,12 +20,12 @@ void dijkstra(ll start, ll dis[], vector<Edge> G[], ll n){
 	}
 	dis[start] = 0;
 	priority_queue<P, vector<P>, greater<P> > que;
-	que.push(P(start, 0));
+	que.push(P(0, start));
 	while(!que.empty()){
 		P p = que.top();
 		que.pop();
 		ll cur = p.second;
-		if(dis[cur] < p.second) continue;
+		if(dis[cur] < p.first) continue;
 		for (int i = 0; i < G[cur].size(); ++i)
 		{
 			Edge tmp = G[cur][i];
@@ -66,7 +66,6 @@ int main(){
 		revG[b].push_back(rev_e);
 	}
 
-
 	dijkstra(0, dis, G, n);
 	dijkstra(0, rev_dis, revG, n);
 
@@ -74,17 +73,13 @@ int main(){
 
 	for (int i = 0; i < n; ++i)
 	{
-		ans = max(ans, (t - dis[i] - rev_dis[i]) * a[i] ); 
-	}
-
-	if(ans < 0) {
-		cout << 0 << endl;
-		return 0;
+		if(t >  dis[i] + rev_dis[i]){
+			ans = max(ans, (t - dis[i] - rev_dis[i]) * a[i] ); 
+		}
 	}
 
 	cout << ans << endl;
 
 	return 0;
-
 
 }
