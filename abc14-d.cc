@@ -3,7 +3,7 @@
 #include <queue>
 #include <algorithm>
 #define MAX_N 100001
-#define MAX_LOG_N 16
+#define MAX_LOG_N 18
 
 template<typename A, size_t N, typename T>
 void Fill(A (&array)[N], const T &val){
@@ -38,7 +38,6 @@ void bfs(int start, vector<int> G[], int size, vector<vector<int> >& p, vector<i
 		q.pop();
 		for (int i = 0; i < G[cur.val].size(); ++i)
 		{
-			// cout << G[cur.val][i] << endl;
 			int next = G[cur.val][i];
 			if(check[next]){
 				check[next] = 0;
@@ -61,13 +60,12 @@ void init_p(vector<vector<int> >& p, int size){
 				continue;
 			}
 			p[i+1][j] = p[i][ p[i][j] ];
-			// cout << "i: " << i << " j: " << j << " " << p[i][j] << endl;
 		}
 	}
 }
 
 
-int lca(int a, int b, vector<vector<int> >& p, int size, vector<int> &d){
+int lca(int a, int b, const vector<vector<int> >& p, int size, const vector<int> &d){
 	if(d[a] > d[b]) swap(a, b);
 	int diff = d[b] - d[a];
 	for (int i = 0; i < MAX_LOG_N - 1 ; ++i)
@@ -113,7 +111,6 @@ int main(){
 		edges.push_back(e);
 	}
 
-	// vector<int> p(size, -1);
 	vector< vector<int> > p(MAX_LOG_N, vector<int>(n, -1)); 
 	vector<int> d(n, -1);
 	bfs(0, G, n, p, d);
@@ -122,9 +119,7 @@ int main(){
 
 	for (int i = 0; i < edges.size(); ++i)
 	{
-		cout << d[edges[i].a] + d[edges[i].b] - d[lca(edges[i].a, edges[i].b, p, n, d) ] + 1 << endl;
+		cout << d[edges[i].a] + d[edges[i].b] - d[lca(edges[i].a, edges[i].b, p, n, d) ]*2 + 1 << endl;
 	}
-
-
 
 }
