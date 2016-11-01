@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 #define ll long long
@@ -23,8 +24,6 @@ ll nCk(ll n, ll k){
 		}
 		for (int j = 0; j <= i+1; ++j)
 		{
-			// C[i+1][j] += C[i][j];
-			// C[i+1][j] %= MOD;
 			C[j+1] += tmp[j];
 			C[j+1] %= MOD;
 
@@ -37,7 +36,7 @@ ll nCk(ll n, ll k){
 
 
 int main(){
-	ll r, c, x, y, d, l;
+	int r, c, x, y, d, l;
 	cin >> r >> c;
 	cin >> x >> y;
 	cin >> d >> l;
@@ -60,20 +59,20 @@ int main(){
 			{
 				// 上の列
 				int bit = k;
-				if(i <= x){
-					bit |= 1 << 0;
+				if(i < x){
+					bit |= 1 ;
 				}
 				// 左の列
-				if(i%x == 1){
+				if(i%x == 0){
 					bit |= 1 << 1;
 				}
 				//右の列
-				if(i%y == 0){
+				if(i%x == x-1){
 					bit |= 1 << 2;
 
 				}
 				//下の列
-				if(i > x * (y - 1)){
+				if(i >= x * (y - 1)){
 					bit |= 1 << 3;
 				} 
 				dp2[j][k] += dp[j][k];
@@ -84,7 +83,7 @@ int main(){
 		}
 		for (int j = 0; j <= d + l ; ++j)
 		{
-			for (int k = 0; k < 1 << 4; ++k)
+			for (int k = 0; k < (1 << 4); ++k)
 			{
 				dp[j][k] = dp2[j][k];
 				// cout << dp[j][k] << " ";
@@ -97,7 +96,8 @@ int main(){
 	ll ans = dp[d + l][(1 << 4) -1] % MOD;
 
     // cout << dp[d + l][(1 << 4) -1] << endl;
-	cout << (r - x + 1) * (c - y + 1) % MOD * dp[d + l][(1 << 4) -1] % MOD * nCk(d+l, d) % MOD << endl;
+    // cout << (r - x + 1) * (c - y + 1) << endl;
+	cout << (r - x + 1) * (c - y + 1) % MOD * dp[d + l][(1 << 4) -1] % MOD * nCk(d+l, min(d, l) ) % MOD << endl;
     // cout << nCk(d+l, d) % MOD << endl;	
 
 }
