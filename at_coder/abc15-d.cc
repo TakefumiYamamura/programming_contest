@@ -11,7 +11,6 @@ int main(){
 	int w, n, k;
 	cin >> w;
 	cin >> n >> k;
-	// int dp[50][10000];
 	int weight[51];
 	int value[51];
 
@@ -19,6 +18,7 @@ int main(){
 	{
 		cin >> weight[i] >> value[i];
 	}
+
 	int dp[10010][52]; // 次元削減 重さと何
 	Fill(dp, 0);
 	int dp2[10010][52];

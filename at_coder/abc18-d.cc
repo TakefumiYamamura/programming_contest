@@ -15,9 +15,6 @@ struct chocho
 
 int main(){
 	int n, m, p, q, r;
-	int x[N_MAX * M_MAX];
-	int y[N_MAX * M_MAX];
-	int z[N_MAX * M_MAX];
 	vector<chocho> G[M_MAX];
 
 	cin >> n >> m >> p >> q >> r;

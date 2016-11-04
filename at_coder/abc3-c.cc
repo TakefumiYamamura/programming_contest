@@ -9,7 +9,7 @@ int main(){
 	int n, k;
 	cin >> n >> k;
 	vector<double> nums;
-	double ans = 0.0000000;
+	double ans = 0.0;
 
 	for (int i = 0; i < n; ++i)
 	{
@@ -22,10 +22,9 @@ int main(){
 
 	for (int i = n-k; i < n; ++i)
 	{
-		ans = (ans + nums[i]) / 2.0000000;
+		ans = (ans + nums[i]) / 2.0;
 	}
 
-	// cout << ans << endl;
 	printf("%.6f\n", ans );
 
 }
