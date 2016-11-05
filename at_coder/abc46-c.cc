@@ -19,16 +19,12 @@ int main(){
 	 	ll tmp_a = a[i];
 	 	if(t[i-1] > t[i] || a[i-1] > a[i]){
 	 		ll tmp_mul = max( (t[i-1] - 1)/ t[i] + 1, (a[i-1] - 1) / a[i] + 1);
-	 		// if( (tmp_mul * t[i] == t[i-1] && tmp_mul * a[i] > a[i-1] ) || (tmp_mul * a[i] == a[i-1] && tmp_mul * t[i] > t[i-1])  ){
-	 		// 	tmp_mul--;
-	 		// }
 
-	 		// tmp_mul++;
 	 		t[i] *= tmp_mul;
 	 		a[i] *= tmp_mul;
-	 		// cout << "tmp_mul " << tmp_mul << "  ";
+
 	 	}
-	 	// cout << t[i] << " " << a[i] << "　i番目 " << i <<endl;
+
 	 }
 
 	 cout << t[n-1] + a[n-1] << endl;
