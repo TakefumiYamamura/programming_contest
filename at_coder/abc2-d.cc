@@ -39,20 +39,21 @@ int main(){
 				v.push_back(j);
 				tmp++;
 			}
-			bool check = true;
-			for (int k = 0; k < v.size(); ++k)
-			{
-				for (int l = k+1; l < v.size(); ++l)
-				{
-					if(!con[v[k]][v[l]]){
-						check = false;
-						break;
-					}
-				}
-				if(!check) break;
-			}
-			if(!check) tmp = 0;
 		}
+
+		for (int k = 0; k < v.size(); ++k)
+		{
+			for (int l = k+1; l < v.size(); ++l)
+			{
+				if(!con[v[k]][v[l]]){
+
+					tmp = 0;
+					goto BREAK_LABEL;
+				}
+			}
+		}
+		BREAK_LABEL:
+
 		v.clear();
 		ans = max(ans, tmp);
 	}
