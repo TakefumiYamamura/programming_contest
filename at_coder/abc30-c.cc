@@ -47,7 +47,6 @@ int main(){
 			count++;
 			cur_time = *b_index + y;
 		}
-		// cout << *a_index <<  " " << *b_index <<  " " << cur_time << endl; 	
 	}
 
 	cout << count / 2 << endl;
