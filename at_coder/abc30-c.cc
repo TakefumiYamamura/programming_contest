@@ -6,96 +6,49 @@
 using namespace std;
 
 int main(){
-	int n, m;
-	int x, y;
+	long long n, m;
+	long long x, y;
 	cin >> n >> m;
 	cin >> x >> y;
-	// queue<int> a;
-	// queue<int> b;
-	vector<int> a;
-	vector<int> b; 
+
+	vector<long long> a;
+	vector<long long> b; 
 
 	for (int i = 0; i < n; ++i)
 	{
-		int tmp;
+		long long tmp;
 		cin >> tmp;
-		a.push(tmp);
+		a.push_back(tmp);
 	}
 
 	for (int i = 0; i < m; ++i)
 	{
-		int tmp;
+		long long tmp;
 		cin >> tmp;
-		b.push(tmp);
+		b.push_back(tmp);
 	}
 
-	int cur_time = 0;
-	int count = 0;
+	long long cur_time = 0;
+	long long count = 0;
 
+	vector<long long>::iterator a_index = a.begin();
+	vector<long long>::iterator b_index = b.begin();
 
-	vector<int>::iterator a_index = a.begin();
-	vector<int>::iterator b_index = b.begin();
-
-	while(a_index !=  a.end() && b_index != b.end() ){
+	while(*a_index != 0 && *b_index != 0){
+		//while(!*a_index && !*b_index ){ why is this error?
 		if (count % 2 == 0){
-			if(a.front() >= cur_time){
-				cur_time = a.front() + x;
-				count++;
-			}
-			a.pop();
-			if(a.empty() && !b.empty() ){
-				lower_bound(a.begin(), b.end(), cur_time)
-				if(b.front() >= cur_time){
-					cur_time = b.front() + y;
-					count++;
-				}
-				b.pop();
-			}
+			a_index = lower_bound(a_index, a.end(), cur_time);
+			if(!*a_index) break;
+			count++;
+			cur_time = *a_index + x;		
 		}else{
-			if(b.front() >= cur_time){
-				cur_time = b.front() + y;
-				count++;
-			}
-			b.pop();
-			while(b.empty() && !a.empty() ){
-				if(a.front() >= cur_time){
-					cur_time = a.front() + x;
-					count++;
-				}
-				a.pop();
-			}
-		}		
-
+			b_index = lower_bound(b_index, b.end(), cur_time);
+			if(!*b_index) break;
+			count++;
+			cur_time = *b_index + y;
+		}
+		// cout << *a_index <<  " " << *b_index <<  " " << cur_time << endl; 	
 	}
 
-	// while(!a.empty() && !b.empty()){
-	// 	if (count % 2 == 0){
-	// 		if(a.front() >= cur_time){
-	// 			cur_time = a.front() + x;
-	// 			count++;
-	// 		}
-	// 		a.pop();
-	// 		while(a.empty() && !b.empty() ){
-	// 			if(b.front() >= cur_time){
-	// 				cur_time = b.front() + y;
-	// 				count++;
-	// 			}
-	// 			b.pop();
-	// 		}
-	// 	}else{
-	// 		if(b.front() >= cur_time){
-	// 			cur_time = b.front() + y;
-	// 			count++;
-	// 		}
-	// 		b.pop();
-	// 		while(b.empty() && !a.empty() ){
-	// 			if(a.front() >= cur_time){
-	// 				cur_time = a.front() + x;
-	// 				count++;
-	// 			}
-	// 			a.pop();
-	// 		}
-	// 	}
-	// }
 	cout << count / 2 << endl;
 }
