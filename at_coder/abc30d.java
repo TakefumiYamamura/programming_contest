@@ -2,9 +2,6 @@ import java.util.Scanner;
 import java.math.BigInteger;
 import java.util.Arrays;
 
-// import java.util.*;
-// import java.math.*;
-
 class Node{
 
     int value;
