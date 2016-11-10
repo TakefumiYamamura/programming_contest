@@ -38,9 +38,8 @@ void Temperance::exec(){
 	expense = INF;
 	for (ll i = 0; i <= days; ++i)
 	{
-		ll luxuary_num = ((days - i) * down - i * cheap.value - resource) / (luxuary.value + down) + 1;
-		if(luxuary_num < 0) continue;
-		// cout << " cheap " << i << " luxuary " << luxuary_num << " expense " << cheap.price * i + luxuary.price * luxuary_num << endl; 
+		ll luxuary_num = (double)((days - i) * down - i * cheap.value - resource) / (luxuary.value + down) + 1;
+		if(luxuary_num < 0) luxuary_num = 0;
 		expense = min( expense, cheap.price * i + luxuary.price * luxuary_num);
 	}
 	cout << expense << endl;
