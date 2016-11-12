@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <string>
 #include <algorithm>
 #define MAX_N 1000001
 #define ll long long

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <string>
 #include <algorithm>
 #define MAX_N 1000001
 #define ll long long
@@ -12,5 +13,7 @@ void Fill(A (&array)[N], const T &val){
 using namespace std;
 
 int main(){
+	int n, ans;
 
+	cout  << ans << endl;
 }
