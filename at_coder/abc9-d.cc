@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <limits>
 
 #define ll long long
 using namespace std;
@@ -12,15 +13,11 @@ public:
 	Matrix();
 	Matrix(ll w, ll h);
 	~Matrix();
-	Matrix mul(const Matrix b);
+	Matrix mul(const Matrix &b);
 	Matrix pow(ll e);
-	void set(ll x, ll y, ll value);
 	void setSize(ll w, ll h);
 	void setE();
-	void setMat(ll x, ll y, ll value);
 	void show();
-	ll fetchMatrix(ll x, ll y);
-
 };
 
 Matrix::Matrix(){}
@@ -31,7 +28,9 @@ Matrix::Matrix(ll w, ll h){
 	setSize(w, h);
 }
 
-Matrix::~Matrix(){}
+Matrix::~Matrix(){
+	// cout << "this object is deleted" << endl;
+}
 
 void Matrix::show(){
 	for (int i = 0; i < this->h; ++i)
@@ -44,28 +43,20 @@ void Matrix::show(){
 	}
 }
 
-void Matrix::set(ll x, ll y, ll value){
-	mat[x][y] = value;
-}
 
-Matrix Matrix::mul(const Matrix b){
-	vector<vector<ll> > new_mat;
-	new_mat = vector<vector<ll> >(b.w, vector<ll>(this->h, 0));
+Matrix Matrix::mul(const Matrix &b){
+	Matrix new_mat = Matrix(b.w, this->h);
 	for (int i = 0; i < b.w; ++i)
 	{
 		for (int j = 0; j < this->h; ++j)
 		{
 			for (int k = 0; k < this->w; ++k)
 			{
-				new_mat[i][j] ^= this->mat[k][j] & b.mat[i][k];
-				// new_mat[i][j] += this->mat[k][j] * b.mat[i][k];
+				new_mat.mat[i][j] ^= this->mat[k][j] & b.mat[i][k];
 			}
-			// new_mat[i][j] ^= this->mat[i];
 		}
 	}
-	Matrix n = Matrix(b.w, this->h);
-	n.mat = new_mat;
-	return n;
+	return new_mat;
 }
 
 void Matrix::setSize(ll w, ll h){
@@ -75,41 +66,38 @@ void Matrix::setSize(ll w, ll h){
 		this->mat[i].resize(h);
 	}
 
+	// for (int i = 0; i < w; ++i)
+	// {
+	// 	for (int j = 0; j < h; ++j)
+	// 	{
+	// 		mat[i][j] = 0;
+	// 	}
+	// }
+}
+
+void Matrix::setE(){
+	//単位元の1は2進数で全ての桁が1みたいな数
 	for (int i = 0; i < w; ++i)
 	{
 		for (int j = 0; j < h; ++j)
 		{
 			mat[i][j] = 0;
-		}
-	}
-}
-
-void Matrix::setE(){
-	//単位元は2進数で全ての桁が1みたいな数
-	for (int i = 0; i < w; ++i)
-	{
-		for (int j = 0; j < h; ++j)
-		{
 			if(i == j) mat[i][j] = numeric_limits<ll>::max();
 		}
 	}
 }
 
-ll Matrix::fetchMatrix(ll x, ll y){
-	return mat[x][y];
-} 
-
 Matrix Matrix::pow(ll e){
-	// vector<vector<ll> > new_mat(b.w, this->h);
 	Matrix tmp = *this;
 	Matrix ans(w, h);
 	ans.setE();
-	for (int i = e; i > 0; i = i >> 1)
-	{
+	ll i = e;
+	while(i > 0){
 		if(i & 1){
 			ans = tmp.mul(ans);
 		}
 		tmp = tmp.mul(tmp);
+		i >>= 1;
 	}
 	return ans;
 }
@@ -130,7 +118,6 @@ RecurrenceRelation::RecurrenceRelation(){
 	cin >> k >> m;
 	a.resize(m);
 	c.resize(k);
-
 	for (int i = 0; i < k; ++i)
 	{
 		cin >> a[i];
@@ -144,51 +131,41 @@ RecurrenceRelation::RecurrenceRelation(){
 RecurrenceRelation::~RecurrenceRelation(){}
 
 void RecurrenceRelation::exec(){
-	// for (int i = k+1; i <= m; ++i)
-	// {
-	// 	ll tmp = 0;
-	// 	for (int j = 1; j <= k; ++j)
-	// 	{
-	// 		tmp ^= (c[j] & a[i-j]);
-	// 	}
-	// 	a[i] = tmp;
-	// }
-	// cout << a[m] << endl;
-	Matrix mat = Matrix(k, k);
-	// mat.setE();
-	// mat.show();
+	Matrix ans_mat = Matrix(k, k);
 	for (int i = 0; i < k; ++i)
 	{
-		mat.set(i, 0, c[i]);
+		for (int j = 0; j < k; ++j)
+		{
+			ans_mat.mat[i][j] = 0;
+		}
+	}
+	for (int i = 0; i < k; ++i)
+	{
+		ans_mat.mat[i][0] = c[i];
 	}
 	for (int i = 0; i < k - 1; ++i)
 	{
-		mat.set(i, 1+i, 1);
+		ans_mat.mat[i][i+1] = numeric_limits<ll>::max();
 	}
-	// mat.show();
-	Matrix pow_mat = mat.pow(m);
-	// pow_mat.show();
+
+	if(m <= k){
+		cout << a[m-1] << endl;
+		return;
+	} 
+	ans_mat = ans_mat.pow(m-k);
 	Matrix a_mat = Matrix(1, k);
-	Matrix c_mat = Matrix(k, 1);
 	for (int i = 0; i < k; ++i)
 	{
-		a_mat.set(0, i, a[i]);
-		c_mat.set(i, 0, c[i]);
-	}	
-	// a_mat.show();
-	// Matrix tmp = pow_mat.mul(a_mat);
-	// tmp.show();
-	// c_mat(pow_mat.mul(a_mat) );
-	Matrix ans_mat = c_mat.mul(pow_mat.mul(a_mat) );
-	ans_mat.show();
+		a_mat.mat[0][k-i-1] = a[i];
+	}
+	ans_mat = ans_mat.mul(a_mat);
 
-	// pow_mat.show();
-	// Matrix ans_mat = pow_mat.mul(a_mat);
-	// ans_mat.show();
-
+	cout << ans_mat.mat[0][0] << endl;
+	return ;
 }
 
 int main(){
 	RecurrenceRelation rr = RecurrenceRelation();
 	rr.exec();
+	return 0;
 }
