@@ -85,7 +85,7 @@ SortRainTime::SortRainTime(){
 		timeArray[t.start]++;
 		timeArray[t.finish]--;
 	}
-	for (int i = 0; i < timeArray.size(); ++i)
+	for (int i = 0; i < timeArray.size() - 1; ++i)
 	{
 		timeArray[i+1] += timeArray[i]; 
 	}
@@ -101,7 +101,7 @@ void SortRainTime::exec(){
 	timeArray[24*12 + 1] = 0;
 
 	if(timeArray[0] > 0) start = Time::convertToS(0);
-	for (int i = 1; i <= 24 * 12; ++i)
+	for (int i = 0; i <= 24 * 12; ++i)
 	{
 		if(timeArray[i] == 0 && timeArray[i+1] > 0){
 			start = Time::convertToS(i+1);
