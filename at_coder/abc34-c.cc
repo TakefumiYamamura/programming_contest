@@ -58,7 +58,6 @@ ll pow(ll a, ll e){
 
 void set_fac(){
 	fac[0] = 1;
-	fac[1] = 1;
 	revfac[0] = 1;
 	for (int i = 1; i < MAX_N; ++i)
 	{
