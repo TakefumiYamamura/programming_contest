@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stdio.h>
 
 using namespace std;
 
@@ -29,10 +30,14 @@ Coin::~Coin(){}
 
 void Coin::exec(){
 	double ans = 0;
-	for (int i = 0; i < tmp; ++i)
+	for (int i = 0; i < n; ++i)
 	{
 		int tmp = countDivisor(c[i]);
-		ans += (double)((tmp+1)/2) / (double)tmp
+		if(tmp%2 == 0){
+			ans += 0.5;
+		}else{
+			ans += ((tmp+1)/ 2.0 ) / (double)tmp;
+		}
 	}
 	printf("%.10f\n", ans);
 }
@@ -41,7 +46,7 @@ int Coin::countDivisor(int num){
 	int ans = 0;
 	for (int i = 0; i < n; ++i)
 	{
-		if(c[i] % num == 0) ans++;
+		if(num % c[i] == 0) ans++;
 	}
 	return ans;
 }
