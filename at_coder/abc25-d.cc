@@ -105,11 +105,11 @@ void Integers25::exec(){
 			// }
 		}
 	}
-	for (int i = 0; i < 25; ++i)
-	{
-		cout << dp[(1 << i)] << " ";
-		if(i % 5 ==4) cout << endl;
-	}
+	// for (int i = 0; i < 25; ++i)
+	// {
+	// 	cout << dp[(1 << i)] << " ";
+	// 	if(i % 5 ==4) cout << endl;
+	// }
 	// cout << (0 >> 5) << endl;
 	// for (int i = 0; i < 25; ++i)
 	// {

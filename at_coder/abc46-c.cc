@@ -15,14 +15,10 @@ int main(){
 
 	for (int i = 1; i < n; ++i)
 	 {
-	 	ll tmp_t = t[i];
-	 	ll tmp_a = a[i];
 	 	if(t[i-1] > t[i] || a[i-1] > a[i]){
 	 		ll tmp_mul = max( (t[i-1] - 1)/ t[i] + 1, (a[i-1] - 1) / a[i] + 1);
-
 	 		t[i] *= tmp_mul;
 	 		a[i] *= tmp_mul;
-
 	 	}
 
 	 }

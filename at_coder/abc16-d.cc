@@ -49,10 +49,6 @@ void CutInTwo::exec(){
 			count++;
 		}
 	}
-	// for (int i = 0; i < n; ++i)
-	// {
-	// 	cout << points[i].x << " " << points[i].y << endl;
-	// }
 	cout << count / 2 + 1 << endl;
 }
 

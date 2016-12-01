@@ -27,7 +27,7 @@ struct Node
 
 void bfs(int start, vector<int> G[], int size, vector<vector<int> >& p, vector<int> &d){
 	queue<Node> q;
-	vector<int> check(size, 1); //　未訪問は1
+	vector<int>  (size, 1); //　未訪問は1
 	Node n = {start, 0, -1};
 	p[0][start] = -1;
 	d[start] = 0;
