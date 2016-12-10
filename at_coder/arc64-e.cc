@@ -5,21 +5,43 @@
 
 using namespace std;
 
-class arc64
+struct Point
+{
+	double x, y;
+};
+
+struct Circle
+{
+	Point center;
+	int radius;
+};
+
+class CosmicRays
 {
 public:
-	arc64();
-	~arc64();
+	Point start, end;
+	int n;
+	vector<vector<int> > adjacent;
+	vector<Circle> circles;
+	CosmicRays();
+	~CosmicRays();
 	void exec();
 };
 
-arc64::arc64(){
-
+CosmicRays::CosmicRays(){
+	cin >> start.x >> start.y >> end.x >> end.y;
+	cin >> n;
+	for (int i = 0; i < n; ++i)
+	{
+		Circle tmpCircle;
+		cin >> tmpCircle.point.x >> tmpCircle.point.y >> tmpCircle.radius;
+		circles.push_back(tmpCircle);
+	}
 }
 
-arc64::~arc64(){}
+CosmicRays::~CosmicRays(){}
 
-void arc64::exec(){}
+void CosmicRays::exec(){}
 
 int main(){
 	
