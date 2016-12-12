@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 #define ll long long
-#define N_MAX 20001
+#define K_MAX 1000000007LL
 
 using namespace std;
 
@@ -12,8 +12,8 @@ class TakahashiGame
 public:
 	int n;
 	int k;
-	vector<int> a;
-	vector<int> imos;
+	vector<ll> a;
+	vector<ll> imos;
 	TakahashiGame();
 	~TakahashiGame();
 	void exec();
@@ -28,7 +28,7 @@ TakahashiGame::TakahashiGame(){
 	a[0] = 0;
 	for (int i = 1; i <= n; ++i)
 	{
-		int tmp;
+		ll tmp;
 		cin >> a[i];
 		if(i == 1){
 			imos[i] = a[i];
@@ -41,47 +41,42 @@ TakahashiGame::TakahashiGame(){
 TakahashiGame::~TakahashiGame(){}
 
 void TakahashiGame::exec(){
-	vector<int> dp;
+	vector<ll> dp;
 	dp.resize(n+1);
 	for (int i = 0; i <= n; ++i)
 	{
-		dp[i] = N_MAX;
+		dp[i] = K_MAX;
 	}
 	dp[0] = 0;
 	dp[1] = 1;	
 	for (int i = 1; i < n; ++i)
 	{
-		vector<int> tmp;
+		vector<ll> tmp;
 		tmp.resize(n+1);
+		tmp[0] = 0;
 		for (int j = 0; j < n; ++j)
 		{
-			// cout << dp[j] <<endl;
-			if(dp[j] == N_MAX) continue;
-			// cout << a[i+1] <<endl;
-			int min_day = dp[j] *(a[i+1])/ imos[i] + 1;
-			// cout << min_day << endl;
-			tmp[j+1] = dp[j] + min_day;
-			// if(dp[j] + min_day <= imos[i+1] && min_day <= a[i+1]){
-			// 	tmp[j+1] = min(dp[j] + min_day, dp[j+1]); 
-			// }
+			ll min_day = dp[j] *(a[i+1])/ imos[i] + 1;
+			if(min_day <= a[i+1]){
+				tmp[j+1] = min(dp[j] + min_day, dp[j+1]); 
+			}else{
+				tmp[j+1] = dp[j+1];
+			}
 		}
-		// cout << imos[i] << " "
 		for (int j = 0; j <= n; ++j)
 		{
 			dp[j] = tmp[j];
-			// cout << dp[j] << " ";
 		}
-		// cout << endl;
 	}
 	int ans;
 	for (int i = 0; i <= n; ++i)
 	{
-		// cout << dp[i] << " " ;
 		if(k >= dp[i]){
 			ans = i;
 		}
 	}
-	// cout << endl;
+	if(imos[n] == k) ans = 1;
+	if(imos[n] == 0) ans = 0;
 	cout << ans << endl;
 }
 
