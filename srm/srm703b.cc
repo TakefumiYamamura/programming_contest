@@ -15,8 +15,8 @@ public:
 	int n;
 	vector<int> par;
 	vector<int> rank;
-	UnionFindTree(int n){
-		this.n = n;
+	UnionFindTree(int num){
+		n = num;
 		par.resize(n);
 		rank.resize(n);
 		for (int i = 0; i < n; ++i)
@@ -35,8 +35,8 @@ public:
 	}
 
 	void unite(int x, int y){
-		root_x = find(x);
-		root_y = find(y);
+		int root_x = find(x);
+		int root_y = find(y);
 		if(root_x == root_y)return;
 		if(rank[root_x] < rank[root_y]){
 			par[root_x] = root_y;
@@ -45,13 +45,16 @@ public:
 			if(rank[root_x] == rank[root_y]) rank[root_x]++;
 		}
 	}
+
+	bool same(int x, int y){
+		return find(x) == find(y);
+	}
 };
 
 
 class GCDGraph
 {
 public:
-	vector<int > > G;
 	int gcd( int a, int b )
 	{
 	  if ( ( 0 == a ) || ( 0 == b ) )
@@ -65,101 +68,20 @@ public:
 	}
 
 	string possible(int n, int k, int x, int y){
-		// int bigger = max(x, y);
-		// vector<int> map_x;
-		// vector<int> map_y;
-		// map_x.resize(n+1);
-		// map_y.resize(n+1);
-		// for (int i = 0; i <= n; ++i)
-		// {
-		// 	map_x[i] = 0;
-		// 	map_y[i] =
-		// }
+		UnionFindTree uft = UnionFindTree(n+1);
+		for (int i = k+1; i <= n; ++i)
+		{
+			for (int j = i; j <= n; j += i)
+			{
+				uft.unite(i, j);
+			}
+		}
 
-		// for (int i = 1; i < x; ++i)
-		// {
-		// 	if(x%i == 0){
-		// 		map_x[i] = 1;
-		// 	}else{
-		// 		map_x[i] = 0;
-		// 	}
-		// }
-
-		// for (int i = 1; i < y; ++i)
-		// {
-		// 	if(y%i == 0){
-		// 		map_y[i] = 1;
-		// 	}else{
-		// 		map_y[i] = 0;
-		// 	}
-		// }
-
-
-		// for (int i = bigger+1; i <= n; ++i)
-		// {
-		// 	for (int j = 0; j < i; ++j)
-		// 	{
-		// 		if(i%j == 0 && map_y[j] && map_y[i]){
-		// 			return "Possible";
-		// 		}
-		// 	}
-		// }
-
-		// if(x == y) return "Possible";
-		if(gcd(x, y) > k){
+		if(uft.same(x, y)){
 			return "Possible";
 		}else{
 			return "Impossible";
 		}
-
-
-		// G.resize(n+1);
-		// for (int i = 1; i <= n; ++i)
-		// {
-		// 	for (int j = i+1; j <= n; ++j)
-		// 	{
-		// 		if(j != i && gcd(i, j) > k){
-		// 			G[i].push_back(j);
-		// 			G[j].push_back(i);
-		// 		}
-		// 	}
-		// }
-
-
-		// vector<bool> V;
-		// V.resize(n+1);
-		// for (int i = 1; i <= n; ++i)
-		// {
-		// 	V[i] = false;
-		// }
-
-		// queue<int> q;
-		// q.push(x);
-		// V[x] = true;
-		// bool findFlag = false;
-		// while(!q.empty()){
-		// 	int cur = q.front();
-		// 	q.pop();
-		// 	for (int i = 0; i < G[cur].size(); ++i)
-		// 	{
-		// 		int next = G[cur][i];
-		// 		if(V[next] == false){
-		// 			q.push(next);
-		// 			V[next] = true;
-		// 			if(next == y){
-		// 				findFlag = true;
-		// 				break;
-		// 			}
-		// 		}
-		// 	}
-		// 	if(findFlag) break;
-		// }
-
-		// if(findFlag){
-		// 	return "Possible";
-		// }else{
-		// 	return "Impossible";
-		// }
 
 	}
 };
