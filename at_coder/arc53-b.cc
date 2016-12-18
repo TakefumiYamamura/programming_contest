@@ -24,7 +24,7 @@ void PalindromeInstallments::exec(){
 		}
 	}
 	int odd = 0;
-	for (int i = 0; i < 26; ++i)
+	for (int i = 0; i <= 26; ++i)
 	{
 		if(bit >> i & 1){
 			odd++;
@@ -35,11 +35,7 @@ void PalindromeInstallments::exec(){
 		cout << str.length() << endl;
 		return;
 	}
-	if(odd % 2 == 1){
-		cout << str.length() / odd << endl;
-	}else{
-		cout << str.length() / odd - 1 << endl;
-	}
+	cout << (str.length() - odd) / 2 / odd * 2 + 1 << endl;
 }
 
 int main(){
