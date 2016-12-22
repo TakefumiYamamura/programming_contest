@@ -23,10 +23,15 @@ int main(){
 		num.index = i;
 		nums.push_back(num);
 	}
+	for (int i = 0; i < n; ++i)
+	{
+		cout << nums[i].index << " " << nums[i].value<< endl;
+	}
+
 	sort(nums.begin(), nums.end(), Num::Asc);
 	for (int i = 0; i < n; ++i)
 	{
-		cout << nums[i].index << endl;
+		cout << nums[i].index << " " << nums[i].value<< endl;
 	}
 
 }

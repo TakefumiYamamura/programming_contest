@@ -1,27 +1,18 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <algorithm>
 using namespace std;
-
-struct Node
-{
-	long long val;
-	int index;
-	static bool ValDesc(Node& a, Node& b){
-		return a.val > b.val;
-	}
-};
-
 
 class NetaSushi
 {
 public:
 	int n;
 	int m;
-	long long ans;
+	long long sum_ans;
 	vector<long long> x;
 	vector<long long> y;
-	vector<Node> dif;
+	vector<long long> dif;
 	NetaSushi();
 	void exec();
 	
@@ -32,47 +23,39 @@ NetaSushi::NetaSushi(){
 	x.resize(n);
 	y.resize(n);
 	dif.resize(n);
-	ans = 0;
+	sum_ans = 0;
 
 	for (int i = 0; i < n; ++i)
 	{
 		cin >> x[i] >> y[i];
-		dif[i].val = x[i] - y[i];
-		dif[i].index = i;
-		ans += y[i];
+		dif[i] = x[i] - y[i];
+		sum_ans += y[i];
 	}
 }
 
 void NetaSushi::exec(){
-	sort(dif.begin(), dif.end(), Node::ValDesc);
+	priority_queue<int, vector<int>, greater<int> > que;
+	long long ans = 0;
+	long long sum = 0;
+	for (int i = 0; i < n; ++i)
+	{
+		sum += x[i];
+		ans = max(sum, ans);
+		// cout << ans << endl;
+		que.push(x[i] - y[i]);
+		if(que.size() > m - 1){
+			sum -= que.top();
+			que.pop();
+		}
+	}
+	sort(dif.begin(), dif.end(), greater<int>());
 	m = min(n, m);
-	int max_index = 0;
 	for (int i = 0; i < m-1; ++i)
 	{
-		ans += dif[i].val;
-		max_index = max(max_index, dif[i].index);
+		sum_ans += dif[i];
 	}
-
-	if(m == n){
-		cout << ans +  dif[m-1].val << endl;
-		return;
-	}
-
-	long long tmp_ans = ans;
-	tmp_ans += dif[m-1].val;
-	max_index = max(max_index, dif[m-1].index);
-	for (int i = max_index + 1; i < n; ++i)
-	{
-		tmp_ans -= y[i];
-	}
-	ans = max(tmp_ans, ans);
-	for (int i = max_index; i < n-1; ++i)
-	{
-		tmp_ans -= x[i];
-		tmp_ans += y[i];
-		tmp_ans += x[i+1];
-		ans = max(ans, tmp_ans);
-	}
+	ans = max(sum_ans, ans);
+	
 	cout << ans << endl;
 }
 
