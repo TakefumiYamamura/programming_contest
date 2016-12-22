@@ -12,7 +12,6 @@ public:
 	long long sum_ans;
 	vector<long long> x;
 	vector<long long> y;
-	vector<long long> dif;
 	NetaSushi();
 	void exec();
 	
@@ -28,7 +27,6 @@ NetaSushi::NetaSushi(){
 	for (int i = 0; i < n; ++i)
 	{
 		cin >> x[i] >> y[i];
-		dif[i] = x[i] - y[i];
 		sum_ans += y[i];
 	}
 }
@@ -48,13 +46,6 @@ void NetaSushi::exec(){
 			que.pop();
 		}
 	}
-	sort(dif.begin(), dif.end(), greater<int>());
-	m = min(n, m);
-	for (int i = 0; i < m-1; ++i)
-	{
-		sum_ans += dif[i];
-	}
-	ans = max(sum_ans, ans);
 	
 	cout << ans << endl;
 }
