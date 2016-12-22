@@ -44,26 +44,25 @@ public:
 		}
 		dp[0][0] = a[0];
 		dp[0][1] = -1 * MOD; // dp[n][1]の時は、符号が反対になっている。
+		dp[0][2] = -1 * MOD;
 		int flag = 0;
 
 		for (int i = 1; i < n; ++i)
 		{
+			// if(flag >= 2){
+			// 	dp[i][0] = max(dp[i-1][0] + a[i], dp[i-1][1] + a[i]);
+			// 	dp[i][1] = max(dp[i-1][0] + a[i], dp[i-1][1] + a[i]);
+			// 	continue;
+
+			// }
 			if(op[i] == "+"){
-				dp[i][0] = max(dp[i-1][0] + a[i], dp[i-1][1] - a[i]);
+				dp[i][0] = max(dp[i-1][0] + a[i], max(dp[i-1][1] - a[i],  dp[i-1][2] + a[i]) );
 				dp[i][1] = dp[i-1][1] - a[i];
-				if(flag) {
-					dp[i][0] = max(dp[i][0], dp[i-1][1] + a[i]);
-					dp[i][1] = max(dp[i-1][1] + a[i], dp[i][1]);
-				}
-
+				dp[i][2] = dp[i-1][2] + a[i];
 			}else{
-				dp[i][0] = max(dp[i-1][0] - a[i], dp[i-1][1] + a[i]);
-				dp[i][1] = max(dp[i-1][1] + a[i], dp[i-1][0] - a[i]);
-				if(flag >= 2 ) {
-					dp[i][0] = max(dp[i][0], dp[i-1][0] + a[i]);
-					dp[i][1] = max(dp[i-1][0] + a[i], dp[i][1]);
-				}
-
+				dp[i][0] = max(dp[i-1][1] + a[i], max(dp[i-1][0] - a[i], dp[i-1][2] - a[i]) );
+				dp[i][1] = max(dp[i-1][1] + a[i], max(dp[i-1][0] - a[i], dp[i-1][2] - a[i]) );
+				dp[i][2] = dp[i-1][2] - a[i]; 
 				flag++;
 			}
 			// cout << dp[i][0] << " " << dp[i][1] << endl;
