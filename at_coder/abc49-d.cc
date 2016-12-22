@@ -5,6 +5,7 @@
 #include <string>
 #include <algorithm>
 #include <queue>
+#include <map>
 using namespace std;
 
 class UnionFindTree
@@ -13,6 +14,7 @@ public:
 	int n;
 	vector<int> par;
 	vector<int> rank;
+	UnionFindTree(){}
 	UnionFindTree(int num){
 		n = num;
 		par.resize(n);
@@ -54,15 +56,16 @@ class Connectivity
 {
 public:
 	int n, k, l;
+	UnionFindTree uft1;
+	UnionFindTree uft2;
 	Connectivity();
-	~Connectivity();
 	void exec();	
 };
 
 Connectivity::Connectivity(){
 	cin >> n >> k >> l;
-	UnionFindTree uft1 = UnionFindTree(n+1);
-	UnionFindTree uft2 = UnionFindTree(n+1); 
+	uft1 = UnionFindTree(n+1);
+	uft2 = UnionFindTree(n+1); 
 	for (int i = 0; i < k; ++i)
 	{
 		int p, q;
@@ -75,8 +78,29 @@ Connectivity::Connectivity(){
 		cin >> r >> s;
 		uft2.unite(r, s);
 	}
-	pair<int, int>
-	
+}
+
+void Connectivity::exec(){
+	map<pair<int, int >, int> hash;
+	for (int i = 1; i <= n; ++i)
+	{
+		pair<int, int> p;
+		p.first = uft1.find(i);
+		p.second = uft2.find(i);
+		hash[p]++;
+	}
+	for (int i =1 ; i <= n; ++i)
+	{
+		pair<int, int> p;
+		p.first = uft1.find(i);
+		p.second = uft2.find(i);
+		cout << hash[p];
+		if(i < n){
+			cout << " ";
+		}
+	}
+	cout << endl;
+
 }
 
 int main(){

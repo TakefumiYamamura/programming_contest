@@ -21,7 +21,6 @@ NetaSushi::NetaSushi(){
 	cin >> n >> m;
 	x.resize(n);
 	y.resize(n);
-	dif.resize(n);
 	sum_ans = 0;
 
 	for (int i = 0; i < n; ++i)
@@ -39,7 +38,6 @@ void NetaSushi::exec(){
 	{
 		sum += x[i];
 		ans = max(sum, ans);
-		// cout << ans << endl;
 		que.push(x[i] - y[i]);
 		if(que.size() > m - 1){
 			sum -= que.top();
