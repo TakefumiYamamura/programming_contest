@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#define ll long long
 
 using namespace std;
 
@@ -32,14 +33,7 @@ PersonX::PersonX(){
 PersonX::~PersonX(){}
 
 void PersonX::exec(){
-	// bool oddFlag;
-	// if(d % 2 == 0){
-	// 	oddFlag = true;
-	// }else{
-	// 	oddFlag = false;
-	// }
-	// d = min(r+c-2, d);
-	for (int i = 1; i <= d; ++i)
+	for (int i = 0; i <= d; ++i)
 	{
 		if(i-2 >= 0) dp[i] = dp[i-2];
 		for (int j = 0; j < r; ++j)
@@ -50,14 +44,6 @@ void PersonX::exec(){
 			}
 		}
 	}
-	// if(d == r+c-2){
-	// 	if(oddFlag){
-	// 		cout << dp[d/2 * 2] << endl;
-	// 	}else{
-	// 		cout << dp[d/2 * 2] << endl;
-	// 	}
-	// 	return;
-	// }
 	cout << dp[d] << endl;
 }
 
