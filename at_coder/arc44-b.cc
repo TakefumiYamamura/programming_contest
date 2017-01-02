@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
+#include <map>
 #include <cmath>
 #include <algorithm>
 
-#define MAX_N 10011
 #define ll long long
 #define ull unsigned long long
 #define eps 10e-10
@@ -36,7 +36,7 @@ Conbination::~Conbination(){}
 void Conbination::setFac(){
 	fac[0] = 1;
 	revfac[0] = 1;
-	for (ll i = 1; i <= size; ++i)
+	for (int i = 1; i <= size; ++i)
 	{
 		fac[i] = i * fac[i-1] % MOD;
 		revfac[i] = pow(fac[i], MOD - 2) % MOD;
@@ -61,58 +61,71 @@ ll Conbination::nCk(ll n, ll k){
 	return fac[n] * revfac[k] % MOD * revfac[n - k] % MOD;
 }
 
-class ContestAtCoder
+class ShortestPath
 {
 public:
-	ll n;
-	vector<ll> t;
-	vector<ll> count;
-	ContestAtCoder();
-	~ContestAtCoder();
+	int n;
+	int maxN;
+	vector<ll> a;
+	vector<ll> cnt;
+	ShortestPath();
+	~ShortestPath();
+	bool check();
 	void exec();
 };
 
-ContestAtCoder::ContestAtCoder(){
+ShortestPath::ShortestPath(){
 	cin >> n;
-	count = vector<ll>(MAX_N, 0);
+	cnt = vector<ll>(n, 0);
 	for (int i = 0; i < n; ++i)
-	{
-		ll tmpT;
-		cin >> tmpT;
-		t.push_back(tmpT);
-		count[tmpT]++;
+	{ 
+		int tmpA;
+		cin >> tmpA;
+		a.push_back(tmpA);
+		cnt[tmpA]++;
+		maxN = max(maxN, tmpA);
 	}
-
 }
 
-ContestAtCoder::~ContestAtCoder(){}
+ShortestPath::~ShortestPath(){}
 
-void ContestAtCoder::exec(){
-	Conbination c = Conbination(MAX_N);
-	sort(t.begin(), t.end());
-	for (int i = 1; i < n; ++i)
-	{
-		t[i] += t[i-1];
+bool ShortestPath::check(){
+	if(a[0] != 0) return true;
+	if(cnt[0] != 1){
+		return true;
 	}
-	ll sum = 0;
-	ll pattern = 1;
-	for (int i = 0; i < n; ++i)
+	for (int i = 0; i <= maxN; ++i)
 	{
-		sum += t[i];
+		if(cnt[i] == 0) return true;
 	}
+	return false;
+}
 
-	for (int i = 0; i < MAX_N; ++i)
+void ShortestPath::exec(){
+	if(check()){
+		cout << 0 << endl;
+		return;
+	}
+	Conbination c = Conbination(n+1);
+	ll ans = 1;
+	for (int i = 1; i <= maxN; ++i)
 	{
-		if(count[i] >= 1){
-			pattern = (pattern * c.fac[count[i]] ) % MOD;
+		ll tmp = ( c.pow(c.pow(2, cnt[i-1]) - 1,  cnt[i]) ) % MOD;
+		ans = (ans * tmp) % MOD;
+	}
+	ll cnt2 = 1;
+
+	for (int i = 1; i <= maxN ; ++i)
+	{
+		if(cnt[i] >= 2){
+			cnt2 = cnt2 * c.pow(2 ,cnt[i] * (cnt[i] - 1 )/ 2 ) % MOD; 
 		}
 	}
-	cout << sum << endl;
-	cout << pattern << endl;
-
+	ans = (ans * cnt2) % MOD;
+	cout << ans << endl;
 }
 
 int main(){
-	ContestAtCoder cac = ContestAtCoder();
-	cac.exec();
+	ShortestPath sp = ShortestPath();
+	sp.exec();
 }

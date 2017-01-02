@@ -63,7 +63,7 @@ class ModEquationEasy
 {
 public:
 	int count(int n, int k, int v){
-		vector<vector<int> > dp;
+		vector<vector<long long> > dp;
 		dp.resize(n+1);
 		for (int i = 0; i <= n; ++i)
 		{
@@ -77,13 +77,13 @@ public:
 		{
 			dp[0][i] = 1;
 		}
-		for (int i = 1; i < n; ++i)
+		for (long long i = 1; i < n; ++i)
 		{
-			for (int j = 0; j < k; ++j)
+			for (long long j = 0; j < k; ++j)
 			{
-				for (int s = 0; s < k; ++s)
+				for (long long s = 0; s < k; ++s)
 				{
-					dp[i][j*s%k] += dp[i-1][j];
+					dp[i][j*s%k] = (dp[i][j*s%k] + dp[i-1][j]) % MOD;
 				}
 			}
 		}
