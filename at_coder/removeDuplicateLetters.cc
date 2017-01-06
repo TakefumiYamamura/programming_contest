@@ -10,7 +10,7 @@ using namespace std;
 
 class Solution {
 public:
-	Solution(){}
+    Solution(){}
     string removeDuplicateLetters(string s) {
         map<char, int> hash;
         map<char, bool> visited;
