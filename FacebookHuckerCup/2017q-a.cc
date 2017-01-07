@@ -5,51 +5,137 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <cmath>
+#include <string>
+#include <fstream> 
+#include <sstream> 
 
+#define eps 10e-8
 
 using namespace std;
 
-class TwinsGame
+class ProgressPie
 {
 public:
-	TwinsGame();
-	~TwinsGame();
-	void exec();
+	int p;
+	double x, y;
+	ProgressPie();
+	~ProgressPie();
+	string exec();
 };
 
-TwinsGame::TwinsGame(){
+ProgressPie::ProgressPie(){
+	cin >> p >> x >> y;
 
 }
 
-TwinsGame::~TwinsGame(){}
+ProgressPie::~ProgressPie(){}
 
-void TwinsGame::exec(){
-	vector<vector<int > > board;
-	board.resize(4);
-	for (int i = 1; i <= 3; ++i)
-	{
-		board[i].resize(4);
-		for (int j = 1; j <= 3; ++j)
-		{
-			board[i][j] = 0;
+string ProgressPie::exec(){
+
+	if(50 <= x && 50 <= y){
+		double difX = x - 50;
+		double difY = y - 50;
+		if(p <= 25){
+			if(difY * tan(2 * M_PI *  p / 100.0) - difX > eps){
+				return "black" ;
+			}else{
+				return "white";
+			}
+
+		}else{
+			if(50*50 - difX*difX >= difY*difY){
+				return "black" ;
+			}else{
+				return "white";
+			}
 		}
+
 	}
-	int chokudai = recurvisve(board, 0);
-	int chokuko = sum - chokudai;
-	cout << chokudai << endl;
-	cout << chokuko << endl;
+
+	if(50 <= x && 50 >= y){
+		double difX = x - 50;
+		double difY =  50 - y;
+		if(p < 25){
+			return "white";
+
+		}
+		if(p <= 50){
+			if(difX * tan(2 * M_PI *  (p-25) / 100.0) - difY > eps){
+				return "black" ;
+			}else{
+				return "white";
+			}
+		}else{
+			if(50*50 - difX*difX >= difY*difY){
+				return "black" ;
+			}else{
+				return "white";
+			}
+		}
+
+	}
+
+	if(50 >= x && 50 >= y){
+		double difX = 50 - x;
+		double difY = 50 - y;
+		if(p < 50){
+			return "white";
+
+		}
+		if(p <= 75){
+			if(difY * tan(2 * M_PI *  (p-75) / 100.0) - difX > eps){
+				return "black" ;
+			}else{
+				return "white";
+			}
+		}else{
+			if(50*50 - difX*difX >= difY*difY){
+				return "black" ;
+			}else{
+				return "white";
+			}
+			
+		}
+
+	}
+
+	if(50 >= x && 50 <= y){
+		double difX = 50 - x;
+		double difY = y - 50;
+		if(p < 75){
+			return "white";
+		}
+		if(p <= 100){
+			if(difX * tan(2 * M_PI *  (p-75) / 100.0) - difY > eps){
+				return "black" ;
+			}else{
+				return "white";
+			}
+		}else{
+			if(50*50 - difX*difX >= difY*difY){
+				return "black" ;
+			}else{
+				return "white";
+			}
+		}
+
+	}
+
+
 }
-
-
 
 int main(){
+
+	string filename = "test.txt";
+	ofstream writing_file;
+    writing_file.open(filename, std::ios::out);
 	int testCase;
 	cin >> testCase;
 	for (int i = 0; i < testCase; ++i)
 	{
-		cout << "Case #" << i+1 << ": ";
-		TwinsGame problem = TwinsGame();
-		problem.exec();
+		ProgressPie problem = ProgressPie();
+		writing_file << "Case #" << i+1 << ": " << problem.exec() << endl;
 	}
 
 }
