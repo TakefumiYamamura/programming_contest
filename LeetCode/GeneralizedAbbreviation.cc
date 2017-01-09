@@ -5,8 +5,6 @@
 
 using namespace std;
 
-
-
 class Solution {
 public:
 	vector<string> answers;
