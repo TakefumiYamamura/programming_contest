@@ -87,23 +87,3 @@ public:
         
     }
 };
-
-// int main(){
-// 	vector<vector<char > > test;
-// 	test.resize(3);
-// 	test[0].push_back('0');
-// 	test[0].push_back('E');
-// 	test[0].push_back('0');
-// 	test[0].push_back('0');
-// 	test[1].push_back('E');
-// 	test[1].push_back('0');
-// 	test[1].push_back('W');
-// 	test[1].push_back('E');
-// 	test[2].push_back('0');
-// 	test[2].push_back('E');
-// 	test[2].push_back('0');
-// 	test[2].push_back('0');
-// 	Solution s = Solution();
-// 	cout << s.maxKilledEnemies(test) << endl;
-// }
-
