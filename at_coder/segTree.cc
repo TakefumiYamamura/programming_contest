@@ -55,13 +55,13 @@ int SegmentTree::query(int a, int b, int k, int l, int r){
 
 
 int main(){
-	int a[10] = {10,9,8,7,5,4,7,8,9,10};
+	int a[10] = {10,9,6,7,5,4,3,8,1,10};
 
 	SegmentTree st = SegmentTree(10);
 	for (int i = 0; i < 10; ++i)
 	 {
 	 	st.update(i, a[i]);
 	 }
-	 //(3,5] 8,7 => 7
-	 cout << st.query(3, 5, 0, 0, 10) << endl;
+	 //(3,5] 6,7 => 7
+	 cout << st.query(4, 5, 0, 0, 10) << endl;
 }
