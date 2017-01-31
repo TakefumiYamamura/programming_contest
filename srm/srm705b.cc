@@ -55,6 +55,17 @@ public:
 			}
 
 		}
+		// for (int i = 0; i < 26; ++i)
+		// {
+		// 	for (int j = 0; j < 26; ++j)
+		// 	{
+		// 		if(i == j) continue;
+		// 		Character tmp = {(char)(i+'a'), (char)(j+'a')};
+		// 		if(hash1[tmp] > 0 && hash2[tmp] > 0){
+		// 			return "Impossible";
+		// 		}
+		// 	}
+		// }
 		for (int i = 0; i < 26; ++i)
 		{
 			for (int j = 0; j < 26; ++j)
