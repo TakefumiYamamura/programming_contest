@@ -5,26 +5,48 @@
 #include <string>
 #include <algorithm>
 #include <map>
+#include <unordered_map>
 #include <queue>
 
 using namespace std;
 
-class Cross
+class PalindromicSubseq2
 {
 public:
-	string exist(vector<string> board){
-		for (int i = 1; i < board.size() - 1; ++i)
+	 int solve(string s){
+	 	unordered_map<char, int> hash;
+	 	for (int i = 0; i < s.length(); ++i)
+	 	{
+	 		if(hash.end() == hash.find(s[i])){
+	 			hash[s[i]] = 0;
+	 		}
+	 		hash[s[i]]++;
+	 	}
+		vector<int> tmp;
+		tmp.resize(s.length());
+		for (int i = 0; i < s.length(); ++i)
 		{
-			for (int j = 1; j < board[i].length() - 1; ++j)
-			{
-				string tmp = board[i];
-				if(tmp[j] == '#' && tmp[j+1] == '#' && tmp[j-1] == '#'){
-					string tmp1 = board[i-1];
-					string tmp2 = board[i+1];
-					if(tmp1[j] == '#' && tmp2[j] == '#') return "Exist";
-				}
-			}
+			tmp[i] = 0;
 		}
-		return "Does not exist";
+		unordered_map<char, int> l_hash;
+		for (int i = 0; i < s.length(); ++i)
+		{
+	 		if(l_hash.end() == l_hash.find(s[i])){
+	 			l_hash[s[i]] = 0;
+	 		}
+			l_hash[s[i]]++;
+			for (auto itr = hash.begin(); itr != hash.end(); ++itr)
+			{
+				if(l_hash[itr->first] > 0) tmp[i]++;
+			}
+			hash[s[i]]--;
+		}
+		int ans = 0;
+
+		for (int i = 0; i < s.length(); ++i)
+		{
+			ans ^= i * tmp[i];
+		}
+		return ans;
 	}
 };

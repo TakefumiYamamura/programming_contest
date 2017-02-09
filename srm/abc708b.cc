@@ -9,22 +9,44 @@
 
 using namespace std;
 
-class Cross
+class BuildingStrings
 {
 public:
-	string exist(vector<string> board){
-		for (int i = 1; i < board.size() - 1; ++i)
-		{
-			for (int j = 1; j < board[i].length() - 1; ++j)
-			{
-				string tmp = board[i];
-				if(tmp[j] == '#' && tmp[j+1] == '#' && tmp[j-1] == '#'){
-					string tmp1 = board[i-1];
-					string tmp2 = board[i+1];
-					if(tmp1[j] == '#' && tmp2[j] == '#') return "Exist";
-				}
-			}
+	vector<string> findAny(int K){
+		vector<string> ans;
+		int count = K / 26;
+		string maxS = "abccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz";
+		while(count >= 50){
+			ans.push_back(maxS);
+			count -= 50;
 		}
-		return "Does not exist";
+		string tmpS = "abcdefghijklmnopqrstuvwxyz";
+		if(count == 0){
+
+		}else if(count >= 26){
+			int tmpC = count - 26;
+			while(tmpC > 0){
+				tmpS += "a";
+				tmpC--;
+			}
+			ans.push_back(tmpS);
+		}else{
+			int tmpC = 26 - count;
+			while(tmpC > 0){
+				tmpS[26 - tmpC] = 'a';
+				tmpC--;
+			}
+			ans.push_back(tmpS);
+		}
+		int res = K % 26;
+		string addS = "";
+		if(res > 0){
+			while(res > 0){
+				addS += "a";
+				res--;
+			}
+			ans.push_back(addS);
+		}
+		return ans;
 	}
 };
