@@ -21,7 +21,6 @@ public:
 		}
 		cout << ans - 1 << endl;
 	}
-
 };
 
 int main(){

@@ -9,9 +9,9 @@ struct Present{
 	int w, h;
 	static bool Asc(const Present& x, const Present& y){
 		if(x.w == y.w){
-			return x.h > y.h;
+			return x.h < y.h;
 		}else{
-			return x.w > y.w;
+			return x.w < y.w;
 		}
 	}
 };
@@ -93,6 +93,8 @@ PresentForMySpecial::~PresentForMySpecial(){
 		
 	}
 }
+
+
 
 
 
