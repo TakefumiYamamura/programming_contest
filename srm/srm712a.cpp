@@ -14,7 +14,6 @@ using namespace std;
 class RepeatNumberCompare
 {
 public:
-
 	string compare(int x1, int k1, int x2, int k2){
 	 	int count1 = 0;
 	 	int tmpx1 = x1; 
