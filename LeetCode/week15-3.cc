@@ -31,7 +31,6 @@ public:
 			q.pop();
 			map<char, int> nowHand = cur.hand;
 			int limit = cur.str.length();
-			// cout << cur.str << " ";
 			while(true){
 				bool flag = true;
 				for (int i = 0; i < limit - 2; ++i)
@@ -53,7 +52,6 @@ public:
 				}
 				if(flag) break;
 			}
-			// cout << cur.str <<  " "<< cur.path<< endl;
 			if(cur.str.length() == 0){
 				ans = min(cur.path, ans);
 				continue;
