@@ -57,12 +57,10 @@ class BaumTest
 public:
 	int n, m;
 	UnionFindTree uft;
-	vector<vector<int> > adj;
 	vector<int> edge_count;
 	BaumTest() {
 		cin >> n >> m;
 		uft = UnionFindTree(n);
-		adj.resize(n);
 		edge_count = vector<int>(n, 0);
 		for (int i = 0; i < m; ++i)
 		{
@@ -70,8 +68,6 @@ public:
 			cin >> u >> v;
 			u--;
 			v--;
-			adj[u].push_back(v);
-			adj[v].push_back(u);
 			edge_count[u]++;
 			uft.unite(u, v);
 		}
@@ -91,33 +87,6 @@ public:
 		for(auto hash : hash_node_nums) {
 			if(hash_node_edges[hash.first] + 1 == hash.second) ans++;
 		}
-		// for (int start = 0; start < n; ++start)
-		// {
-		// 	if(par.find(uft.find(start)) != par.end()) continue;
-		// 	par.insert(uft.find(start));
-
-		// 	vector<bool> visited = vector<bool>(n, false);
-		// 	queue<int> q;
-		// 	visited[start] = true;
-		// 	q.push(start);
-		// 	bool closed_flag = true;
-		// 	while(!q.empty()) {
-		// 		int cur = q.front();
-		// 		q.pop();
-		// 		for (int i = 0; i < adj[cur].size(); ++i)
-		// 		{
-		// 			int next = adj[cur][i];
-		// 			if(visited[next]) {
-		// 				closed_flag = false;
-		// 				break;
-		// 			}
-		// 			q.push(next);
-		// 			visited[next] = true;
-		// 		}
-		// 		if(!closed_flag) break;
-		// 	}
-		// 	if(closed_flag) ans++;
-		// }
 		cout << ans << endl;
 	}
 	
