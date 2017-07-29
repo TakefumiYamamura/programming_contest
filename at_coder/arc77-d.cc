@@ -81,6 +81,6 @@ int main() {
  	Conbination c = Conbination(n+1);
  	for (ll i = 1; i <= n+1; ++i)
  	{
- 		cout << c.nCk(n+1, i) - c.nCk(a + b, i-1) << endl;
+ 		cout << (c.nCk(n+1, i) + MOD - c.nCk(a + b, i-1) ) % MOD << endl;
  	}
 }
