@@ -1,20 +1,21 @@
 #include <iostream>
 #include <unordered_map>
+#define ll long long
 
 using namespace std;
 
 int main() {
 	string str;
-	int k;
+	ll k;
 	cin >> str;
 	cin >> k;
 	string tmp_str = "abcdefghijklmnopqrstuvwxyz";
-	unordered_map<char, int> um;
-	for (int i = 0; i < tmp_str.size(); ++i)
+	unordered_map<char, ll> um;
+	for (ll i = 0; i < tmp_str.size(); ++i)
 	{
 		um[tmp_str[i]] = i;
 	}
-	for (int i = 0; i < str.size(); ++i)
+	for (ll i = 0; i < str.size(); ++i)
 	{
 
 		if(26 - um[str[i]] <= k){
@@ -23,6 +24,7 @@ int main() {
 		}
 
 	}
-	str[str.size() - 1] = str[str.size() - 1] + k;
+	int last_id = um[str[str.size() - 1]];
+	str[str.size() - 1] = tmp_str[(last_id + k) % 26 ] ;
 	cout << str << endl;
 }
