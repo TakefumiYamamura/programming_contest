@@ -17,7 +17,7 @@ int main() {
 	}
 	for (ll i = 0; i < str.size(); ++i)
 	{
-
+		if(str[i] == 'a') continue;
 		if(26 - um[str[i]] <= k){
 			k -= 26 - um[str[i]];
 			str[i] = 'a';
