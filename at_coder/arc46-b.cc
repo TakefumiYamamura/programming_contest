@@ -8,8 +8,14 @@ class CatchStone
 {
 public:
 	int n, a, b;
-	CatchStone();
-	~CatchStone();
+	CatchStone() {
+		cin >> n >> a >> b;
+
+	}
+
+	void exec() {
+
+	}
 	
 };
 

@@ -49,7 +49,6 @@ public:
 			if(board[x+1][y+1] == 1 && recursive(x+1, y+1) == false) flag = true;
 		}
 		dp[key] = flag;
-        // dp[key] = !recursive(x + 1, y) || !recursive(x, y + 1) || !recursive(x + 1, y);
 		return dp[key];
 	}
 

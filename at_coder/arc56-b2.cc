@@ -35,15 +35,16 @@ public:
 	void exec() {
 		priority_queue<int> que;
 		que.push(start);
+		visited[start] = true;
 		while(!que.empty()) {
 			int cur = que.top();
-			visited[cur] = true;
 			que.pop();
 			for (int i = 0; i < g[cur].size(); ++i)
 			{
 				int next = g[cur][i];
 				if(next >= cur) continue;
 				if(visited[next]) continue;
+				visited[next] = true;
 				que.push(next);
 			}
 		}
